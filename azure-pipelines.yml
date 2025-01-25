@@ -1,0 +1,49 @@
+trigger:
+  - main  # Trigger the pipeline on changes to the main branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use the latest Ubuntu image for the pipeline agent
+
+variables:
+  TERRAFORM_VERSION: '1.5.7'  # Specify the Terraform version to use
+  AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)  # Use pipeline variables for AWS credentials
+  AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)  # Use pipeline variables for AWS credentials
+  AWS_DEFAULT_REGION: 'us-east-1'  # Set the default AWS region
+
+jobs:
+  - job: RunTerraform
+    displayName: 'Run Terraform Pipeline'
+    steps:
+      - script: |
+          echo "Installing Terraform..."
+          wget https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
+          unzip terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
+          sudo mv terraform /usr/local/bin/
+          terraform version
+        displayName: 'Install Terraform'
+
+      - script: |
+          echo "Cloning the repository..."
+          git clone https://github.com/iamjustjules/multi-region-7-transit-gateway-with-vpcs-and-database.git
+          cd multi-region-7-transit-gateway-with-vpcs-and-database
+        displayName: 'Clone Repository'
+
+      - script: |
+          echo "Initializing Terraform..."
+          terraform init
+        displayName: 'Terraform Init'
+
+      - script: |
+          echo "Validating Terraform configuration..."
+          terraform validate
+        displayName: 'Terraform Validate'
+
+      - script: |
+          echo "Generating Terraform plan..."
+          terraform plan -out=tfplan
+        displayName: 'Terraform Plan'
+
+      - script: |
+          echo "Applying Terraform changes..."
+          terraform apply -auto-approve tfplan
+        displayName: 'Terraform Apply'
