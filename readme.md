@@ -14,6 +14,9 @@ SOURCES
 - https://stackoverflow.com/questions/78838728/aws-transit-gateway-why-propagate-routes-to-2-route-tables
 - https://stackoverflow.com/questions/78555581/how-do-i-properly-set-up-a-cross-region-transit-gateway-route-with-terraform
 - https://aiven.io/docs/platform/howto/attach-vpc-aws-tgw
+- https://github.com/terraform-aws-modules/terraform-aws-rds
+- https://github.com/terraform-google-modules/terraform-google-sql-db?tab=readme-ov-file
+- https://github.com/terraform-google-modules/terraform-google-sql-db/tree/main/modules/postgresql
 - https://www.reddit.com/r/aws/comments/ynrm9k/transit_gateway_or_vpc_peering_for_crossregion/
 - https://www.reddit.com/r/aws/comments/16vcxss/direct_connect_transit_gateway_attachment_best/
 - https://www.reddit.com/r/aws/comments/x4878a/transit_gateways_shared_with_ram/

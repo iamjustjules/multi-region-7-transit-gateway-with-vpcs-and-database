@@ -16,6 +16,10 @@
 #     main.tf
 #     variables.tf
 #     outputs.tf
+#   database/
+#     main.tf
+#     variables.tf
+#     outputs.tf
 
 terraform {
   required_providers {
